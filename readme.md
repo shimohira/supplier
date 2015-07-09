@@ -16,19 +16,23 @@ Laravel is accessible, yet powerful, providing powerful tools needed for large, 
 
 - needed update composer :
 
+```
  composer update
+```
 
--setting database
+- setting database
 
+```
  ~/app/config/database.php
+```
 
--migrate table and seed for example data
+- migrate table and seed for example data
 
 ```php
 $ php artisan migrate --seed
 ```
 
--finally run service laravel
+- finally run service laravel
 
 ```php
 $ php artisan serve --host 0.0.0.0
