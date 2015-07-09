@@ -1,0 +1,1 @@
+Text ini ditampilkan dengan metode proses request <strong>;Ajax</strong>;

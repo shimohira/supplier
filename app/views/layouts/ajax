@@ -1,0 +1,37 @@
+
+    <script language = "javascript">
+        function GetXmlHttpObject(){
+            var xmlHttp=null;
+            try {
+                //Untuk Browser Firefox, Opera 8.0+, Safari
+                xmlHttp=new XMLHttpRequest();
+            }
+            catch (e){
+                //Untuk Browser Internet Explorer
+                try {
+                    xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e){
+                    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+            return xmlHttp;
+        }
+
+        function getpages(url,centercol) {
+            xmlHttp=GetXmlHttpObject();
+            if (xmlHttp) {
+                var obj = document.getElementById(centercol);
+                xmlHttp.open("GET", url);
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState == 1) {
+                        obj.innerHTML = '<img alt="Halaman Sedang Dimuat " src="images/wait.gif" alt="loading" / >';
+                    }
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        obj.innerHTML = xmlHttp.responseText;
+                    }
+                }
+                xmlHttp.send(null);
+            }
+        }
+    </script>
