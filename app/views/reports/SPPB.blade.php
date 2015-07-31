@@ -53,7 +53,11 @@ $nama = $value->nama;
 	<thead>
 		<tr>
 			<th style="width:8%;">no</th>
+			<th>Kode barang</th>
+			<th>Nama Barang</th>
 			<th>Part Number</th>
+			<th>Brand</th>
+			<th>satuan</th>
 			<th>QTY</th>
 			<th>U/Price</th>
 			<th>Amounts</th>
@@ -76,7 +80,11 @@ $nama = $value->nama;
 		?>
 		<tr>
 			<td>{{$counter}}</td>
+			<td>{{ $value->kode_barang}}</td>
 			<td>{{ $value->nm_barang }}</td>
+			<td>{{ $value->part_number}}</td>
+			<td>{{ $value->brand }}</td>
+			<td>{{ $value->satuan}}</td>
 			<td>{{ $value->jml_pesan }}</td>
 			<td>{{ $value->hrg_satuan }}</td>
 			<td>{{ $totalharga}}</td>
@@ -86,7 +94,7 @@ $nama = $value->nama;
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="2" class="text-center">
+			<td colspan="6" class="text-center">
 				Total
 			</td>
 			<td class="text-center">

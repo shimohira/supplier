@@ -74,6 +74,7 @@ class POController extends \BaseController {
 				$PO->no_SPPB	= Input::get('no_SPPB');
 				$PO->id_supp	= Input::get('id_supp');
 				$PO->ship_to	= Input::get('ship_to');
+				$PO->city		= Input::get('city');
 				$PO->save();
 
 				Session::flash('message', 'Successfully created PO!');

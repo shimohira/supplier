@@ -52,7 +52,7 @@ return array(
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
     'CreateBarangTable' => $baseDir . '/app/database/migrations/2015_06_16_084409_create_barang_table.php',
-    'CreateDOTable' => $baseDir . '/app/database/migrations/2015_06_16_123008_create_DelO_table.php',
+    'CreateDOTable' => $baseDir . '/app/database/migrations/2015_06_16_123008_create_DO_table.php',
     'CreateDepartmentTable' => $baseDir . '/app/database/migrations/2015_06_16_084125_create_department_table.php',
     'CreateDetilSPPBTable' => $baseDir . '/app/database/migrations/2015_06_16_120513_create_detil_SPPB_table.php',
     'CreateDetilSTTBTable' => $baseDir . '/app/database/migrations/2015_07_06_155357_create_detil_STTB_table.php',

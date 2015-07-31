@@ -74,11 +74,11 @@ class SPPBController extends \BaseController {
 		$detilSPPB->jml_pesan	= Input::get('jml_pesan');
 		$detilSPPB->ket			= Input::get('ket');
 		$detilSPPB->save();
-
+/*
 		$barang = Barang::find(Input::get('kd_brg'));
 		$barang->jml_barang		= $barang->jml_barang-Input::get('jml_pesan');
 		$barang->save();
-
+*/
 		$brg = array(
 			'confirm' => 'succes',
 			);

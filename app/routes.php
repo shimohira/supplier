@@ -37,7 +37,6 @@ Route::get('cart',array('as' => 'cart', 'uses'=>'CartController@index'));
 
 Route::group(array('before' => 'guest'), function(){
 	Route::get('login',array('as' => 'login', 'uses'=>'UserController@index'));
-	Route::get('daftar',array('as' => 'daftar', 'uses'=>'UserController@create'));
 	
 
 	Route::get('form',array('as'=>'form', 'uses'=>'MasterController@form'));
@@ -47,6 +46,11 @@ Route::group(array('before' => 'guest'), function(){
 });
 
 Route::group(array('before' => 'auth'), function() {
+	Route::get('profile',array('as'=>'profile', 'uses' => 'SiteController@profile'));
+	Route::get('prf/{data}', 'SiteController@prfSave');
+	Route::get('pwd/{data}', 'SiteController@pwdSave');
+	Route::get('daftar',array('as' => 'daftar', 'uses'=>'UserController@create'));
+
 	Route::get('/',array('as'=>'index', 'uses'=>'SiteController@index'));
 	Route::get('logout',array('as' => 'logout', 'uses'=> 'UserController@getLogout'));
 	Route::resource('department', 'DepartmentController');
@@ -104,6 +108,9 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('lapSPPB',array('as'=>'lapSPPB', 'uses'=>'LaporanController@lapSPPB'));
 	Route::get('printSPPB/{awal}/{akhir}',array('as'=>'printSPPB', 'uses'=>'ReportController@lapSPPB'));
+
+	Route::get('lapStock',array('as'=>'lapStock', 'uses'=>'LaporanController@lapStock'));
+	Route::get('printStock',array('as'=>'printStock', 'uses'=>'ReportController@lapStock'));
 });
 
 

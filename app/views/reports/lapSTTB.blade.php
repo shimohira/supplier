@@ -25,7 +25,7 @@
 </style>
 
 
-<h2>Laporan Penerimaan Barang</h2>
+<h2>Laporan Pengadaan Barang</h2>
 <ul>
 	
 	<li>

@@ -254,6 +254,7 @@
 					url: 'dataBrg/{id}',
 	                type: 'GET',
 	                data: { id: kd_brg },
+	                dataType: 'json',
 	                success: function(response)
 	                {
 	                	formArea.find('#kode_barang').val(response['kode_barang']);

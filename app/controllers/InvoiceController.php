@@ -61,17 +61,7 @@ class InvoiceController extends \BaseController {
 	 */
 	public function store()
 	{
-		/*
-		public static $rules = array(
-		'no_inv' => 'required|min:5s',
-		'no_PO' => 'required',
-		'tgl_inv' => 'required',
-		'ship_by' => 'required',
-		'pay_method' => 'required',
-		'pelabuhan' => 'required',
-		'carrier' => 'required',
-		);
-		*/
+		
 		$validator = Validator::make(Input::all(), Invoice::$rules);
 
 		if($validator->fails()){
@@ -89,6 +79,19 @@ class InvoiceController extends \BaseController {
 				$invoice->pelabuhan		= Input::get('pelabuhan');
 				$invoice->carrier		= Input::get('carrier');
 				$invoice->save();
+
+				$SPPB = Barang::join('detil_SPPB','barang.kode_barang','=','detil_SPPB.kode_barang')
+							->join('SPPB','detil_SPPB.no_SPPB','=','SPPB.no_SPPB')
+							->join('PO','SPPB.no_SPPB', '=','PO.no_SPPB')
+							->where('no_PO',Input::get('no_PO'))
+							->selectRaw('barang.kode_barang as barang, jml_pesan as pesan')
+							->get();
+
+				foreach ($SPPB as $key => $value) {
+					$barang = Barang::find($value->barang);
+					$barang->jml_barang		= $barang->jml_barang-$value->pesan;
+					$barang->save();
+				}
 
 				Session::flash('message', 'Successfully created invoice!');
 				return Redirect::to('invoice');

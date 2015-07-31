@@ -17,7 +17,7 @@ $no_SPPB = $value->no_SPPB;
 
 <style type="text/css">
 	.header {
-		width:700px;
+		width:1024px;
 	}
 	h2 {
 		text-align: center;

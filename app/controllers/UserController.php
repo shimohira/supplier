@@ -35,10 +35,13 @@ class UserController extends \BaseController {
 			$user->nama = Input::get('nama');
 			$user->no_kar = Input::get('no_kar');
 			$user->username = Input::get('username');
+			$user->level = Input::get('level');
 			$user->password = Hash::make(Input::get('password'));
 			$user->save();
 
-			return Redirect::route('login')->with('message', 'Thanks for registering!');
+			//return Redirect::route('login')->with('message', 'Thanks for registering!');
+			Session::flash('message', 'Successfully create users!');
+			return Redirect::route('daftar');
         // validation has passed, save user in DB
 		} else {
 			return Redirect::route('daftar')->with('message', 'The following errors occurred')->withErrors($validator)->withInput();

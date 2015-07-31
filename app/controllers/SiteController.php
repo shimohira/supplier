@@ -9,13 +9,74 @@ class SiteController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		return View::make('index');
+		$data = array(
+			'barang' => Barang::where('jml_barang','<=','10')
+							->get(),
+			'user' => User::all()
+			);
+		return View::make('index', $data);
 		//
+	}
+
+	public function profile() {
+
+		$data = array(
+			'user' => User::where('username',Auth::user()->username)
+						->get(),
+			);
+		return View::make('profile',$data);
 	}
 
 	public function dashboard() {
 		return View::make('dashboard');
 	}
+
+	public function prfSave() {
+
+		$nama = Input::get('nama');
+
+		$user = User::find(Auth::user()->no_kar);
+		$user->nama		= Input::get('nama');
+		$user->save();
+
+		$respon = array(
+			'nama' => $nama,
+			);
+
+    	return Response::json($respon);
+	}
+
+	public function pwdSave() {
+
+		$pwdOld = Input::get('pwdOld');
+		$pwdNew = Input::get('pwdNew');
+		$pwdCnf = Input::get('pwdCnf');
+		if ($pwdNew) {
+			if (Hash::check($pwdOld, Auth::user()->password)) {
+				if ($pwdNew==$pwdCnf) {
+					$user = User::find(Auth::user()->no_kar);
+					$user->password		= Hash::make($pwdNew);
+					$user->save();
+					$massage = 'success mengubah password';
+				} else {
+					$massage = 'password confirm salah' ;
+				}
+			} else {
+				$massage = 'password lama salah';
+			}
+		} else {
+			$massage = 'password harus di isi' ;
+		}
+
+		
+
+		$respon = array(
+			'nama' => $massage,
+			);
+
+    	return Response::json($respon);
+	}
+
 
 	public function testprint() {
 		//$users = App\Models\User::orderBy('name')->get();

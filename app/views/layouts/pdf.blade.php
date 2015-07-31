@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ABC</title>
     <style type="text/css">
-     .header {
-        
+     @page {
+        @top-right {
+            content: "bar";
+        }
      }
      .footer { position: fixed; bottom: 0px; }
 

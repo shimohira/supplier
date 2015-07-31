@@ -19,6 +19,7 @@ class CreatePOTable extends Migration {
 			$table->string('no_SPPB', 7);
 			$table->string('id_supp', 7);
 			$table->String('ship_to', 255);
+			$table->string('city', 170);
 			$table->primary('no_PO');
 			$table->foreign('no_SPPB')
 					->references('no_SPPB')->on('SPPB')

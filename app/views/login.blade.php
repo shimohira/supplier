@@ -29,8 +29,6 @@
   <p class="login-submit">
     <button type="submit" class="login-button">Login</button>
   </p>
-
-  <p class="forgot-password"><a href="daftar">Daftar</a></p>
   {{ Form::close() }}
 
   <section class="about">

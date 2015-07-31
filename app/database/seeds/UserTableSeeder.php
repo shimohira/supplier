@@ -14,8 +14,9 @@ class UserTableSeeder extends Seeder {
 				'nama' => 'Wahyu',
 				'no_kar' => 'karB001',
 				'username' => 'admin',
+				'level' => 'admin',
 				'password' => Hash::make('admin')
-				)
+				),
 			)
 		);
 	}

@@ -16,6 +16,7 @@ class CreateBarangTable extends Migration {
 		{
 			$table->string('kode_barang', 7);
 			$table->string('nm_barang', 100);
+			$table->string('part_number', 30);
 			$table->string('satuan', 12);
 			$table->string('brand', 20);
 			$table->bigInteger('hrg_satuan');

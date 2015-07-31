@@ -12,7 +12,7 @@ $nama = $value->nama;
     	page-break-after: always;
 	}
 	.header {
-		width:700px;
+		width:1024px;
 	}
 	h2 {
 		text-align: center;
@@ -32,7 +32,7 @@ $nama = $value->nama;
 </style>
 
 
-<h2>Letter of Request procurement</h2>
+<h2>Surat Tanda Terima Barang</h2>
 
 <ul>
 	<li>
@@ -52,7 +52,11 @@ $nama = $value->nama;
 	<thead>
 		<tr>
 			<th style="width:8%;">no</th>
+			<th>Kode barang</th>
+			<th>Nama Barang</th>
 			<th>Part Number</th>
+			<th>Brand</th>
+			<th>satuan</th>
 			<th>QTY</th>
 			<th>U/Price</th>
 			<th>Amounts</th>
@@ -75,7 +79,11 @@ $nama = $value->nama;
 		?>
 		<tr>
 			<td>{{$counter}}</td>
+			<td>{{ $value->kode_barang}}</td>
 			<td>{{ $value->nm_barang }}</td>
+			<td>{{ $value->part_number}}</td>
+			<td>{{ $value->brand }}</td>
+			<td>{{ $value->satuan}}</td>
 			<td>{{ $value->jml_beli }}</td>
 			<td>{{ $value->hrg_satuan }}</td>
 			<td>{{ $totalharga}}</td>
@@ -85,7 +93,7 @@ $nama = $value->nama;
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="2" class="text-center">
+			<td colspan="6" class="text-center">
 				Total
 			</td>
 			<td class="text-center">

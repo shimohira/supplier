@@ -43,6 +43,14 @@
 				{{Form::text('nm_barang', Input::old('nm_barang') ,array('class'=>'form-control'))}}
 			</div>
 		</div>
+
+		<div class="form-group">
+			{{form::label('part_number', 'Part Number', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-5">
+				{{Form::text('part_number', Input::old('part_number') ,array('class'=>'form-control'))}}
+			</div>
+		</div>
+
 		<div class="form-group">
 			{{form::label('satuan', 'Satuan Barang', array('class' => 'col-sm-2 control-label'))}}
 			<div class="col-sm-5">
@@ -57,6 +65,7 @@
 			</div>
 		</div>
 
+		@if (Auth::user()->level == 'admin')
 		<div class="form-group">
 			{{form::label('hrg_satuan', 'Harga Satuan', array('class' => 'col-sm-2 control-label'))}}
 			<div class="col-sm-5">
@@ -70,6 +79,24 @@
 				{{Form::text('jml_barang', Input::old('jml_barang') ,array('class'=>'form-control'))}}
 			</div>
 		</div>
+		@else
+		<div class="form-group">
+			{{form::label('hrg_satuan', 'Harga Satuan', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-5">
+				{{Form::text('hrg_satuan', Input::old('hrg_satuan') ,array('class'=>'form-control','readonly'))}}
+			</div>
+		</div>
+
+		<div class="form-group">
+			{{form::label('jml_barang', 'Jumlah Barang', array('class' => 'col-sm-2 control-label'))}}
+			<div class="col-sm-5">
+				{{Form::text('jml_barang', Input::old('jml_barang') ,array('class'=>'form-control','readonly'))}}
+			</div>
+		</div>
+            
+        @endif
+
+		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				{{Form::submit('Simpan', array("class"=>"btn btn-default"))}}
@@ -78,6 +105,7 @@
 		</div>
 		{{Form::close()}}
 	</div>
+	<!-- /.row -->
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -108,6 +136,7 @@
 			</table>
 		</div>
 	</div>
+	<!-- /.row -->
 
 	<div id="something" align="center">
 
@@ -141,7 +170,6 @@
 
 			var formArea = $('#form-area');
 
-
 			$('#dataBrg tbody').on( 'click', 'tr', function () {
 
 				var kd_brg = $(this).find("#kode_barang").html(); 
@@ -154,6 +182,7 @@
 	                {
 	                	formArea.find('#kode_barang').val(response['kode_barang']);
 						formArea.find('#nm_barang').val(response['nm_barang']);
+						formArea.find('#part_number').val(response['part_number']);
 						formArea.find('#satuan').val(response['satuan']);
 						formArea.find('#brand').val(response['brand']);
 						formArea.find('#hrg_satuan').val(response['hrg_satuan']);

@@ -93,6 +93,12 @@
     		
     		<div class="col-xs-5">
     			<div class="form-group">
+    				{{form::label('city', 'Kota Tujuan', array('class' => 'col-sm-4 control-label'))}}
+    				<div class="col-sm-7">
+    					{{Form::text('city', Input::old('city') ,array('class'=>'form-control'))}}
+    				</div>
+    			</div>
+    			<div class="form-group">
     				{{form::label('no_SPPB', 'No.SPPB', array('class' => 'col-sm-4 control-label'))}}
     				<div class="col-sm-7">
     					{{Form::text('no_SPPB', Input::old('no_SPPB') ,array('class'=>'form-control','readonly'))}}

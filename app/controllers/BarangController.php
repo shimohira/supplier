@@ -75,6 +75,7 @@ class BarangController extends \BaseController {
 				$barang = Barang::find(Input::get('kode_barang'));
 				$barang->nm_barang		= Input::get('nm_barang');
 				$barang->satuan			= Input::get('satuan');
+				$barang->part_number	= Input::get('part_number');
 				$barang->brand			= Input::get('brand');
 				$barang->hrg_satuan		= Input::get('hrg_satuan');
 				$barang->jml_barang		= Input::get('jml_barang');
@@ -86,6 +87,7 @@ class BarangController extends \BaseController {
 				$barang = new Barang;
 				$barang->kode_barang	= Input::get('kode_barang');
 				$barang->nm_barang		= Input::get('nm_barang');
+				$barang->part_number	= Input::get('part_number');
 				$barang->satuan			= Input::get('satuan');
 				$barang->brand			= Input::get('brand');
 				$barang->hrg_satuan		= Input::get('hrg_satuan');

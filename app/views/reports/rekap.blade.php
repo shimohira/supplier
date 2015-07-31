@@ -5,7 +5,7 @@
 
 <style type="text/css">
 	.header {
-		width:700px;
+		width:1024px;
 	}
 	h2 {
 		text-align: center;
@@ -63,17 +63,22 @@
 		?>
 		@foreach($data as $key => $value)
 		<?php
-		$totPesan = $totPesan+$value->total_pesan;
-		$totBeli = $totBeli+$value->total_beli;
+		if ($value->pesan==null) {
+			$value->pesan = 0;
+		} if ($value->beli==null) {
+			$value->beli = 0;
+		}
+		$totPesan = $totPesan+$value->pesan;
+		$totBeli = $totBeli+$value->beli;
 		?>
 		<tr>
-			<td>{{$counter}}</td>
-			<td>{{ $value->kode_barang}}</td>
+			<td>{{$counter }}</td>
+			<td>{{ $value->kode_barang }}</td>
 			<td>{{ $value->nm_barang }}</td>
 			<td>{{ $value->satuan }}</td>
-			<td>{{ $value->jml_barang }}</td>
-			<td>{{ $value->total_pesan }}</td>
-			<td>{{ $value->total_beli }}</td>
+			<td>{{ $value->jml_barang}}</td>
+			<td>{{ $value->beli }}</td>
+			<td>{{ $value->pesan}}</td>
 		</tr>
 		<?php $counter++; ?>
 		@endforeach
@@ -87,10 +92,10 @@
 				
 			</td>
 			<td class="text-center">
-				{{$totPesan}}
+			{{$totBeli}}
 			</td>
 			<td class="text-center">
-				{{$totBeli}}
+			{{$totPesan}}
 			</td>
 		</tr>
 	</tfoot>

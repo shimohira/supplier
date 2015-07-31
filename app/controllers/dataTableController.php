@@ -81,6 +81,7 @@ class DataTableController extends \BaseController {
 	        $brg = array(
 	        	'kode_barang' => $row->kode_barang,
 	        	'nm_barang' => $row->nm_barang,
+	        	'part_number' => $row->part_number,
 	        	'satuan' => $row->satuan,
 	        	'brand' => $row->brand,
 	        	'hrg_satuan' => $row->hrg_satuan,

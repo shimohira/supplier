@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
 			$table->primary('no_kar');
 			$table->string('nama', 20);
 			$table->string('username', 100)->unique();	
+			$table->enum('level', array('admin','user'));
 			$table->string('password', 64);
 			$table->string('remember_token', 100)->nullable();
 			$table->timestamps();

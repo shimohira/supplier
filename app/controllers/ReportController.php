@@ -12,7 +12,7 @@ class ReportController extends \BaseController {
 							->join('SPPB','detil_SPPB.no_SPPB','=','SPPB.no_SPPB')
 							->join('users','SPPB.no_kar','=','users.no_kar')
 							->where('detil_SPPB.no_SPPB','=',$id)
-							->select('nm_barang','jml_pesan','hrg_satuan', 'nama')
+							->select('barang.kode_barang','nm_barang','jml_pesan','hrg_satuan', 'nama', 'brand','satuan','part_number')
 							->get()
 		);
    		$pdf   = PDF::loadView('reports.SPPB', $data);
@@ -28,10 +28,10 @@ class ReportController extends \BaseController {
 							->join('STTB','detil_STTB.no_STTB','=','STTB.no_STTB')
 							->join('users','STTB.no_kar','=','users.no_kar')
 							->where('detil_STTB.no_STTB','=',$id)
-							->select('nm_barang','jml_beli','hrg_satuan', 'nama')
+							->select('barang.kode_barang','nm_barang','jml_beli','hrg_satuan', 'nama', 'brand', 'satuan','part_number')
 							->get()
 		);
-   		$pdf   = PDF::loadView('reports.STTB', $data)->setPaper('a4','landscape');
+   		$pdf   = PDF::loadView('reports.STTB', $data)->setPaper('a4');
    		//return $pdf->download('STTB.pdf');
    		return $pdf->stream();
 	}
@@ -50,6 +50,25 @@ class ReportController extends \BaseController {
 							
 		);
    		$pdf   = PDF::loadView('reports.PO', $data)->setPaper('a4','landscape');
+ 
+   		return $pdf->stream();
+	}
+
+	public function inv($id) {
+		$data = array(
+			'id' 	=> 	$id,
+			'data'	=>	Barang::join('detil_SPPB', 'barang.kode_barang', '=','detil_SPPB.kode_barang' )
+							->join('SPPB','detil_SPPB.no_SPPB','=','SPPB.no_SPPB')
+							->join('PO','SPPB.no_SPPB','=','PO.no_SPPB')
+							->join('supplier','PO.id_supp','=','supplier.id_supp')
+							->join('invoice','PO.no_PO','=','invoice.no_PO')
+							->where('invoice.no_inv','=',$id)
+							->select('barang.kode_barang','nm_barang' ,'part_number','jml_pesan','satuan','hrg_satuan','nm_supp','alamat','fax','telp'
+								,'ship_to','PO.no_PO','tgl_PO','SPPB.no_SPPB', 'invoice.no_inv', 'pay_method','no_rek', 'pelabuhan' ,'carrier', 'tgl_inv', 'city')
+							->get()
+							
+		);
+   		$pdf   = PDF::loadView('reports.inv', $data)->setPaper('a4');
  
    		return $pdf->stream();
 	}
@@ -76,20 +95,34 @@ class ReportController extends \BaseController {
 	}
 
 	public function rekap($id) {
+
+		$pesan = DetilSPPB::join('barang','barang.kode_barang','=','detil_SPPB.kode_barang')
+						->join('SPPB', 'detil_SPPB.no_SPPB', '=','SPPB.no_SPPB')
+						->join('PO','SPPB.no_SPPB','=','PO.no_SPPB')
+						->join('invoice','PO.no_PO','=','invoice.no_PO')
+						->selectRaw('barang.kode_barang,sum(jml_pesan) AS pesan, nm_barang, satuan, jml_barang, tgl_SPPB')
+						->groupBy('kode_barang');
+		
+		$beli = DetilSTTB::join('barang','barang.kode_barang','=','detil_STTB.kode_barang')
+						->join('STTB', 'detil_STTB.no_STTB', '=','STTB.no_STTB')
+						->selectRaw('barang.kode_barang, sum(jml_beli) AS beli, nm_barang, satuan, jml_barang, tgl_STTB')
+						->groupBy('kode_barang');
+		$first = DB::table(DB::raw("({$pesan->toSql()}) as sub1"))
+					->join(DB::raw("({$beli->toSql()}) as sub2"), 'sub2.kode_barang','=','sub1.kode_barang','left')
+					->where(DB::raw("YEAR(sub1.tgl_SPPB)"),$id)
+					->selectRaw('sub1.kode_barang, sub1.pesan, sub2.beli, sub1.nm_barang, sub1.satuan, sub1.jml_barang');
 		$data = array(
 			'id' 	=> 	$id,
-			'data'	=>	Barang::join('detil_SPPB', 'barang.kode_barang', '=','detil_SPPB.kode_barang' )
-							->join('detil_STTB', 'barang.kode_barang', '=','detil_STTB.kode_barang' )
-							->join('SPPB', 'detil_SPPB.no_SPPB', '=','SPPB.no_SPPB' )
-							->join('STTB', 'detil_STTB.no_STTB', '=','STTB.no_STTB' )
-							->where(DB::raw("YEAR(tgl_SPPB)"),$id)
-							->where(DB::raw("YEAR(tgl_STTB)"),$id)
-							->select(DB::raw('distinct(barang.kode_barang)'),'nm_barang','satuan','jml_barang',DB::raw('sum(jml_pesan) AS total_pesan')
-								,DB::raw('sum(jml_beli) AS total_beli'))
-							->groupBy('barang.kode_barang')
-							->get()
+			'data'	=>	DB::table(DB::raw("({$pesan->toSql()}) as sub1"))
+						->join(DB::raw("({$beli->toSql()}) as sub2"), 'sub2.kode_barang','=','sub1.kode_barang','right')
+						->where(DB::raw("YEAR(sub2.tgl_STTB)"),$id)
+						->selectRaw('sub2.kode_barang, sub1.pesan, sub2.beli, sub2.nm_barang, sub2.satuan, sub2.jml_barang')
+						->union($first)
+						->get()
+                		
 		);
-   		$pdf   = PDF::loadView('reports.rekap', $data)->setPaper('a4','landscape');
+
+   		$pdf   = PDF::loadView('reports.rekap', $data)->setPaper('a4','landscape')->save('myfile.pdf');
  
    		return $pdf->stream();
 	}
@@ -125,7 +158,9 @@ class ReportController extends \BaseController {
  
    		return $pdf->stream();
 	}
+/*
 
+*/
 	public function lapSPPB($awal,$akhir) {
 		$data = array(
 			'awal'	=> $awal,
@@ -133,14 +168,24 @@ class ReportController extends \BaseController {
 			'data'	=>	Barang::join('detil_SPPB', 'barang.kode_barang', '=','detil_SPPB.kode_barang' )
 							->join('SPPB', 'detil_SPPB.no_SPPB', '=','SPPB.no_SPPB' )
 							->join('PO','SPPB.no_SPPB','=','PO.no_SPPB')
+							->join('invoice','PO.no_PO','=','invoice.no_PO')
 							->join('supplier','PO.id_supp','=','supplier.id_supp')
 							->whereBetween('tgl_SPPB', array($awal, $akhir))
 							->select('nm_barang','barang.kode_barang','satuan',DB::raw('sum(jml_pesan) AS total_pesan')
 								,'nm_supp','brand','hrg_satuan')
-							->groupBy('barang.kode_barang')
+							->groupBy('kode_barang')
 							->get()
 		);
    		$pdf   = PDF::loadView('reports.lapSPPB', $data)->setPaper('a4','potrait');
+ 
+   		return $pdf->stream();
+	}
+
+	public function lapStock() {
+		$data = array(
+			'data'	=>	Barang::all()
+		);
+   		$pdf   = PDF::loadView('reports.stock', $data)->setPaper('a4','potrait');
  
    		return $pdf->stream();
 	}
