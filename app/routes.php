@@ -58,7 +58,7 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::resource('barang', 'BarangController');
 	Route::get('dataBarang',array('as'=>'dataBrg', 'uses'=>'dataTableController@barang'));
-	Route::get('dataBrg/{data}', 'dataTableController@getBarang');
+	Route::get('dataBrg', 'dataTableController@getBarang');
 
 	Route::resource('supplier', 'SupplierController');
 	Route::get('dataSupplier',array('as'=>'dataSup', 'uses'=>'dataTableController@supplier'));
