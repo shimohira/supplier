@@ -175,7 +175,7 @@
 				var kd_brg = $(this).find("#kode_barang").html(); 
 
 				$.ajax({
-					url: 'dataBrg',
+					url: 'dataBrg/{id}',
 	                type: 'GET',
 	                data: { id: kd_brg },
 	                success: function(response)
