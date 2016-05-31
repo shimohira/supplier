@@ -83,14 +83,14 @@
 		<div class="form-group">
 			{{form::label('hrg_satuan', 'Harga Satuan', array('class' => 'col-sm-2 control-label'))}}
 			<div class="col-sm-5">
-				{{Form::text('hrg_satuan', Input::old('hrg_satuan') ,array('class'=>'form-control','readonly'))}}
+				{{Form::text('hrg_satuan', Input::old('hrg_satuan') ,array('class'=>'form-control'))}}
 			</div>
 		</div>
 
 		<div class="form-group">
 			{{form::label('jml_barang', 'Jumlah Barang', array('class' => 'col-sm-2 control-label'))}}
 			<div class="col-sm-5">
-				{{Form::text('jml_barang', Input::old('jml_barang') ,array('class'=>'form-control','readonly'))}}
+				{{Form::text('jml_barang', Input::old('jml_barang') ,array('class'=>'form-control'))}}
 			</div>
 		</div>
             
