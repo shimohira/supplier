@@ -62,7 +62,7 @@ class DataTableController extends \BaseController {
 		$pages = DB::table('SPPB')
 			->join('department', 'SPPB.id_dept', '=', 'department.id_dept')
 			->select(array('no_SPPB','tgl_SPPB','department.nm_dept'));
-		
+
         return Datatables::of($pages)
             ->make();
 	}
@@ -111,7 +111,7 @@ class DataTableController extends \BaseController {
 			->join('department', 'SPPB.id_dept', '=', 'department.id_dept')
 			->whereNotIn('no_SPPB', $no_SPPB)
 			->select(array('no_SPPB','tgl_SPPB','department.nm_dept'));
-		
+
         return Datatables::of($pages)
             ->make();
 	}
@@ -125,6 +125,7 @@ class DataTableController extends \BaseController {
 		$result = DB::table('detil_SPPB')
 			->join('barang', 'detil_SPPB.kode_barang', '=', 'barang.kode_barang')
 	    	->where('no_SPPB', $id)->get();
+
 
     	return Response::json($result);
     	/*

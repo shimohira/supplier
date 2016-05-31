@@ -471,27 +471,30 @@
 				$.ajax({
 					url: 'smpSTTB1/{data}',
 					type: 'GET',
+					async: false,
+					cache: false,
 					data: { idSupp : acx, noSTTB : no_STTB, tglSTTB : tgl_STTB},
 					success: function(response)
 					{
-						console.log('success');
+						for (var i=0;i<x-2;i++) {
+							var row = document.getElementById("detilBrg").rows[i+1].cells;
+							if (i==x-1) {
+								alert('success simpan');
+							}
+							$.ajax({
+								url: 'smpSTTB2/{data}',
+								type: 'GET',
+								async: false,
+								cache: false,
+								data: {noSTTB : no_STTB,kd_brg : row[0].innerHTML, jml_beli: row[3].innerHTML, ket: row[4].innerHTML},
+								success: function(response)
+								{
+									console.log('success');
+								}
+							});
+						}
 					}
 				});
-				for (var i=0;i<x-2;i++) {
-					var row = document.getElementById("detilBrg").rows[i+1].cells;
-					if (i==x-1) {
-						alert('success simpan');
-					}
-					$.ajax({
-						url: 'smpSTTB2/{data}',
-						type: 'GET',
-						data: {noSTTB : no_STTB,kd_brg : row[0].innerHTML, jml_beli: row[3].innerHTML, ket: row[4].innerHTML},
-						success: function(response)
-						{
-							console.log('success');
-						}
-					});
-				}
 				window.location.replace("STTB");	
 			}
 		}

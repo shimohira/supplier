@@ -462,38 +462,41 @@
 			var x = document.getElementById("detilBrg").rows.length;
 			var z = document.getElementById("detilBrg").rows[1].innerHTML;
 			var y = document.getElementById("detilBrg").rows[1].cells;
-			
+
 			//alert(tgl_SPPB);
-			
-			
-			if (y[0].innerHTML == 'No data available in table') {				
+
+
+			if (y[0].innerHTML == 'No data available in table') {
 				alert('isi barang terlebih dahulu');
 			} else {
 				$.ajax({
 					url: 'smpSPPB1/{data}',
 					type: 'GET',
+					async: false,
+					cache: false,
 					data: { idDept : acx, noSPPB : no_SPPB, tglSPPB : tgl_SPPB},
 					success: function(response)
 					{
-						console.log('success');
+						for (var i=0;i<x-2;i++) {
+							var row = document.getElementById("detilBrg").rows[i+1].cells;
+							if (i==x-1) {
+								alert('success simpan');
+							}
+							$.ajax({
+								url: 'smpSPPB2/{data}',
+								type: 'GET',
+								async: false,
+								cache: false,
+								data: {noSPPB : no_SPPB,kd_brg : row[0].innerHTML, jml_pesan: row[3].innerHTML, ket: row[4].innerHTML},
+								success: function(response)
+								{
+									console.log('success');
+								}
+							});
+						}
 					}
 				});
-				for (var i=0;i<x-2;i++) {
-					var row = document.getElementById("detilBrg").rows[i+1].cells;
-					if (i==x-1) {
-						alert('success simpan');
-					}
-					$.ajax({
-						url: 'smpSPPB2/{data}',
-						type: 'GET',
-						data: {noSPPB : no_SPPB,kd_brg : row[0].innerHTML, jml_pesan: row[3].innerHTML, ket: row[4].innerHTML},
-						success: function(response)
-						{
-							console.log('success');
-						}
-					});
-				}
-				window.location.replace("SPPB");	
+				window.location.replace("SPPB");
 			}
 		}
 

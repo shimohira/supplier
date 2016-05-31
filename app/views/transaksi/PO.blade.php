@@ -356,13 +356,13 @@
 			} );
 
 
-			
+
 			$('#dataSPPB tbody').on( 'click', 'tr', function () {
 				clearrow();
-				var no_SPPB = $(this).find("#no_SPPB").html(); 
+				var no_SPPB = $(this).find("#no_SPPB").html();
 				SPPB.dialog( "close" );
 				formArea.find('#no_SPPB').val(no_SPPB);
-				
+
 	            $.ajax({
 					url: 'dataSPPB/{data}',
 	                type: 'GET',
@@ -373,7 +373,7 @@
 
 	                	//formArea.find('#id_dept').val(response['id_dept']);
 	                	for (var i=0;i<response.length;i++){
-	                		console.log(response);	
+	                		console.log(response);
 	                		addrow(response[i]['kode_barang'],response[i]['nm_barang'],response[i]['hrg_satuan'],response[i]['jml_pesan'],response[i]['ket'],response[i]['hrg_satuan']*response[i]['jml_pesan']);
 	                	}
 	                }
