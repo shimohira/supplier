@@ -10,7 +10,7 @@ class SiteController extends \BaseController {
 	 */
 	public function index() {
 		$data = array(
-			'barang' => Barang::where('jml_barang','<=','10')
+			'barang' => Barang::where('jml_barang','<=','100')
 							->get(),
 			'user' => User::all()
 			);
