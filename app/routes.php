@@ -52,6 +52,8 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('daftar',array('as' => 'daftar', 'uses'=>'UserController@create'));
 
 	Route::get('/',array('as'=>'index', 'uses'=>'SiteController@index'));
+	Route::get('dataMinBarang',array('as'=>'dataMinBrg', 'uses'=>'dataTableController@minBarang'));
+
 	Route::get('logout',array('as' => 'logout', 'uses'=> 'UserController@getLogout'));
 	Route::resource('department', 'DepartmentController');
 	Route::get('dataDepartment',array('as'=>'dataDept', 'uses'=>'dataTableController@department'));

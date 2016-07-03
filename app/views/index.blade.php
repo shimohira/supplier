@@ -18,7 +18,6 @@
 		</div>
 	</div>
 
-
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="panel panel-default">
@@ -27,36 +26,30 @@
 				</div>
 				<div class="panel-body">
 					<div class="text-left">
-						<p>Daftar Stock Barang dibawah 10</p>
+						<h4><p>Daftar Stock Barang dibawah 100</p></h4>
 					</div>
-					<div class="table-responsive">
-						<table class="table table-bordered table-hover table-striped">
-							<thead>
-								<th>
-									Kode Barang
-								</th>
-								<th>
-									Nama Barang
-								</th>
-								<th>
-									satuan
-								</th>
-								<th>
-									Stock Barang
-								</th>
-							</thead>
-							<tbody>
-								@foreach($barang as $key => $value)
-								<tr>
-									<td>{{ $value->kode_barang}}</td>
-									<td>{{ $value->nm_barang}}</td>
-									<td>{{ $value->satuan}}</td>
-									<td>{{ $value->jml_barang}}</td>
-								</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
+					<hr>
+					<table class="display" id="dataBrg">
+						<thead>
+						<tr>
+							<th class="text-left">Kode Barang</th>
+							<th class="text-left">Nama Barang</th>
+							<th class="text-left">Harga Satuan</th>
+							<th class="text-left">Jumlah Barang</th>
+						</tr>
+						</thead>
+						<tbody>
+						</tbody>
+
+						<tfoot>
+						<tr>
+							<th class="text-left">Kode Barang</th>
+							<th class="text-left">Nama Barang</th>
+							<th class="text-left">Harga Satuan</th>
+							<th class="text-left">Jumlah Barang</th>
+						</tr>
+						</tfoot>
+					</table>
 					<div class="text-right">
 						<a href="{{ URL::route('barang.index')}}">View Details <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
@@ -106,6 +99,27 @@
 		</div>
 	</div>
 	<!-- /.row -->
+	<script>
+		$(document).ready(function () {
+			$('#dataBrg').DataTable( {
+				"processing": true,
+				"serverSide": true,
+				"sAjaxSource": "{{URL::route('dataMinBrg')}}",
+				"aaSorting": [[ 0, "asc" ]],
+				"createdRow": function ( row, data, index ) {
+					$('td', row).eq(0).attr('id','kode_barang');
+				},
+
+				"columnDefs": [
+					{ //this prevents errors if the data is null
+						"targets": "_all",
+						"defaultContent": ""
+					}
+				]
+			} );
+
+		});
+	</script>
 
 
 </div>

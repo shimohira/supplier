@@ -181,11 +181,14 @@ class ReportController extends \BaseController {
    		return $pdf->stream();
 	}
 
+	/**
+	 * Laporang Stock barang
+	 */
 	public function lapStock() {
 		$data = array(
 			'data'	=>	Barang::all()
 		);
-   		$pdf   = PDF::loadView('reports.stock', $data)->setPaper('a4','potrait');
+   		$pdf   = PDF::loadView('reports.lapStock', $data)->setPaper('a4','potrait');
  
    		return $pdf->stream();
 	}

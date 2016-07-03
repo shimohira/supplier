@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Pengadaan Barang PT.ITD</title>
     @include('inc.css')
     
     @include('inc.js')

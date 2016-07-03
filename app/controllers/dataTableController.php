@@ -2,6 +2,22 @@
 
 class DataTableController extends \BaseController {
 
+
+	/**
+	 * data Barang minimum
+	 * @return mixed
+	 */
+	public function minBarang(){
+
+		$pages = DB::table('barang')
+			->where('jml_barang','<=','100')
+			->select(array('kode_barang','nm_barang','hrg_satuan','jml_barang'));
+
+
+		return Datatables::of($pages)
+			->make();
+	}
+
 	//*********Start Department**********//
 
 	public function department(){
