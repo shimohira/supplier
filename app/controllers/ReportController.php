@@ -64,7 +64,7 @@ class ReportController extends \BaseController {
 							->join('invoice','PO.no_PO','=','invoice.no_PO')
 							->where('invoice.no_inv','=',$id)
 							->select('barang.kode_barang','nm_barang' ,'part_number','jml_pesan','satuan','hrg_satuan','nm_supp','alamat','fax','telp'
-								,'ship_to','PO.no_PO','tgl_PO','SPPB.no_SPPB', 'invoice.no_inv', 'pay_method','no_rek', 'pelabuhan' ,'carrier', 'tgl_inv', 'city')
+								,'ship_by','ship_to','PO.no_PO','tgl_PO','SPPB.no_SPPB', 'invoice.no_inv', 'pay_method','no_rek', 'pelabuhan' ,'carrier', 'tgl_inv', 'city')
 							->get()
 							
 		);
@@ -100,23 +100,23 @@ class ReportController extends \BaseController {
 						->join('SPPB', 'detil_SPPB.no_SPPB', '=','SPPB.no_SPPB')
 						->join('PO','SPPB.no_SPPB','=','PO.no_SPPB')
 						->join('invoice','PO.no_PO','=','invoice.no_PO')
-						->selectRaw('barang.kode_barang,sum(jml_pesan) AS pesan, nm_barang, satuan, jml_barang, tgl_SPPB')
+						->selectRaw('barang.kode_barang,sum(jml_pesan) AS pesan, nm_barang, satuan, jml_barang, tgl_SPPB, brand')
 						->groupBy('kode_barang');
 		
 		$beli = DetilSTTB::join('barang','barang.kode_barang','=','detil_STTB.kode_barang')
 						->join('STTB', 'detil_STTB.no_STTB', '=','STTB.no_STTB')
-						->selectRaw('barang.kode_barang, sum(jml_beli) AS beli, nm_barang, satuan, jml_barang, tgl_STTB')
+						->selectRaw('barang.kode_barang, sum(jml_beli) AS beli, nm_barang, satuan, jml_barang, tgl_STTB, brand')
 						->groupBy('kode_barang');
 		$first = DB::table(DB::raw("({$pesan->toSql()}) as sub1"))
 					->join(DB::raw("({$beli->toSql()}) as sub2"), 'sub2.kode_barang','=','sub1.kode_barang','left')
 					->where(DB::raw("YEAR(sub1.tgl_SPPB)"),$id)
-					->selectRaw('sub1.kode_barang, sub1.pesan, sub2.beli, sub1.nm_barang, sub1.satuan, sub1.jml_barang');
+					->selectRaw('sub1.kode_barang, sub1.pesan, sub2.beli, sub1.nm_barang, sub1.satuan, sub1.jml_barang, sub1.brand');
 		$data = array(
 			'id' 	=> 	$id,
 			'data'	=>	DB::table(DB::raw("({$pesan->toSql()}) as sub1"))
 						->join(DB::raw("({$beli->toSql()}) as sub2"), 'sub2.kode_barang','=','sub1.kode_barang','right')
 						->where(DB::raw("YEAR(sub2.tgl_STTB)"),$id)
-						->selectRaw('sub2.kode_barang, sub1.pesan, sub2.beli, sub2.nm_barang, sub2.satuan, sub2.jml_barang')
+						->selectRaw('sub2.kode_barang, sub1.pesan, sub2.beli, sub2.nm_barang, sub2.satuan, sub2.jml_barang, sub2.brand')
 						->union($first)
 						->get()
                 		

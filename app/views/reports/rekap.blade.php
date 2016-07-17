@@ -50,6 +50,7 @@
 			<th>Kode Barang</th>
 			<th>Nama Barang</th>
 			<th style="width:8%;">satuan</th>
+			<th style="width:8%;">brand</th>
 			<th style="width:8%;">Jumlah Barang</th>
 			<th>Jumlah Barang Masuk</th>
 			<th>Jumlah Barang Keluar</th>
@@ -76,6 +77,7 @@
 			<td>{{ $value->kode_barang }}</td>
 			<td>{{ $value->nm_barang }}</td>
 			<td>{{ $value->satuan }}</td>
+			<td>{{ $value->brand }}</td>
 			<td>{{ $value->jml_barang}}</td>
 			<td>{{ $value->beli }}</td>
 			<td>{{ $value->pesan}}</td>
@@ -85,11 +87,8 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="4" class="text-center">
+			<td colspan="6" class="text-center">
 				Total Seluruh
-			</td>
-			<td class="text-center">
-				
 			</td>
 			<td class="text-center">
 			{{$totBeli}}
