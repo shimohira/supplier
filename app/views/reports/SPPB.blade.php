@@ -32,14 +32,14 @@ $nama = $value->nama;
 </style>
 
 
-<h2>Letter of Request procurement</h2>
+<h2>Surat Pemesanan Pengadaan Barang</h2>
 
 <ul>
 	<li>
 		Messrs. PT ITD GEMILANG
 		<br>
 		<br>
-		Attn. Mrs. Idol Fauzi
+		Attn. Mrs. Ido Fauzi
 	</li>
 	<li>
 		No.SPPB : {{$id}}

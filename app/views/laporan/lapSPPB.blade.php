@@ -9,14 +9,14 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				Laporan Penjualan Barang
+				Laporan Pemesanan Barang
 			</h1>
 			<ol class="breadcrumb">
 				<li>
 					<i class="fa fa-dashboard"></i>  <a href="{{URL::route('index')}}">Dashboard</a>
 				</li>
 				<li class="active">
-					<i class="fa fa-edit"></i> laporan Penjualan Barang
+					<i class="fa fa-edit"></i> laporan Pemesanan Barang
 				</li>
 			</ol>
 		</div>

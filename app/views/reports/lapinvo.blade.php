@@ -32,7 +32,7 @@
 		Messrs. PT ITD GEMILANG
 		<br>
 		<br>
-		Attn. Mrs. Idol Fauzi
+		Attn. Mrs. Ido Fauzi
 	</li>
 	<li>
 		Tanggal awal : {{$awal}}

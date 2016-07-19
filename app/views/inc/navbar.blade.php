@@ -69,7 +69,7 @@
                         <a href="{{ URL::route('lapRekap') }}">Rekapitulasi<br>Barang</a>
                         <a href="{{ URL::route('lapInvo') }}">Laporan Invoice</a>
                         <a href="{{ URL::route('lapSTTB') }}">Laporan Pengadaan<br>Barang</a>
-                        <a href="{{ URL::route('lapSPPB') }}">Laporan Penjualan<br>Barang</a>
+                        <a href="{{ URL::route('lapSPPB') }}">Laporan Pemesanan<br>Barang</a>
                         <a href="{{ URL::route('lapStock') }}">Laporan Stock<br>Barang</a>
                     </li>
                 </ul>

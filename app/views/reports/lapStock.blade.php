@@ -25,13 +25,13 @@
 </style>
 
 
-<h2>Rekapitulasi Barang</h2>
+<h2>Laporan Stock Barang</h2>
 <ul>
 	<li>
 		Messrs. PT ITD GEMILANG
 		<br>
 		<br>
-		Attn. Mrs. Idol Fauzi
+		Attn. Mrs. Ido Fauzi
 	</li>
 	<li>
 		Karyawan : {{Auth::user()->nama}}
