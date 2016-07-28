@@ -113,6 +113,9 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('lapStock',array('as'=>'lapStock', 'uses'=>'LaporanController@lapStock'));
 	Route::get('printStock',array('as'=>'printStock', 'uses'=>'ReportController@lapStock'));
+
+	Route::get('lapDO',array('as'=>'lapDO', 'uses'=>'LaporanController@lapDO'));
+	Route::get('printDO/{awal}/{akhir}',array('as'=>'printDO', 'uses'=>'ReportController@lapDO'));
 });
 
 

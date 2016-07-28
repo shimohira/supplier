@@ -193,5 +193,34 @@ class ReportController extends \BaseController {
    		return $pdf->stream();
 	}
 
+	/**
+	 *
+	 * Laporan Pengiriman Barang (DO)
+	 * @param $id
+	 * @return mixed
+	 */
+	public function lapDO($awal,$akhir) {
+		$data = array(
+			'awal'	=> $awal,
+			'akhir'	=> $akhir,
+			'data'	=>	SPPB::join('PO','SPPB.no_SPPB','=','PO.no_SPPB')
+				->join('supplier','PO.id_supp','=','supplier.id_supp')
+				->join('invoice','PO.no_PO','=','invoice.no_PO')
+				->join('DO','invoice.no_inv','=','DO.no_inv')
+
+				->whereBetween('DO.tgl_DO', array($awal, $akhir))
+				->select('nm_supp', 'alamat', 'telp', 'pelabuhan', 'carrier', 'tgl_DO')
+				->get()
+
+		);
+//		foreach($data['data'] as $key => $value){
+//			var_dump($value);
+//		}
+
+		$pdf   = PDF::loadView('reports.lapDO', $data)->setPaper('a4','landscape');
+
+		return $pdf->stream();
+	}
+
 
 }
