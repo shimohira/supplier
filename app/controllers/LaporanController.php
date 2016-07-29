@@ -26,6 +26,11 @@ class LaporanController extends \BaseController {
 	public function lapStock(){
 		return View::make('laporan.lapStock');
 	}
+
+	public function lapPO(){
+		return View::make('laporan.lapPO');
+	}
+
 	public function lapDO(){
 		return View::make('laporan.lapDO');
 	}

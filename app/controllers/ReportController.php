@@ -195,8 +195,35 @@ class ReportController extends \BaseController {
 
 	/**
 	 *
+	 * Laporan Pembayaran Barang (PO)
+	 * @param $awal
+	 * @param $akhir
+	 * @return mixed
+	 */
+	public function lapPO($awal,$akhir) {
+		$data = array(
+			'awal'	=> $awal,
+			'akhir'	=> $akhir,
+			'data'	=>	Department::join('SPPB','department.id_dept','=','SPPB.id_dept')
+				->join('PO','SPPB.no_SPPB','=','PO.no_SPPB')
+				->leftJoin('invoice','PO.no_PO','=','invoice.no_PO')
+
+				//->whereBetween('PO.tgl_PO', array($awal, $akhir))
+				->select('nm_dept', 'SPPB.no_SPPB', 'SPPB.tgl_SPPB' ,'PO.no_PO', 'PO.tgl_PO', 'invoice.tgl_inv', 'invoice.no_inv', 'invoice.pay_method')
+				->get()
+
+		);
+		
+		$pdf   = PDF::loadView('reports.lapPO', $data)->setPaper('a4','landscape');
+
+		return $pdf->stream();
+	}
+
+	/**
+	 *
 	 * Laporan Pengiriman Barang (DO)
-	 * @param $id
+	 * @param $awal
+	 * @param $akhir
 	 * @return mixed
 	 */
 	public function lapDO($awal,$akhir) {
@@ -213,9 +240,6 @@ class ReportController extends \BaseController {
 				->get()
 
 		);
-//		foreach($data['data'] as $key => $value){
-//			var_dump($value);
-//		}
 
 		$pdf   = PDF::loadView('reports.lapDO', $data)->setPaper('a4','landscape');
 

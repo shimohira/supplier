@@ -9,14 +9,14 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				Laporan Pengiriman Barang
+				Laporan Pembayaran Barang
 			</h1>
 			<ol class="breadcrumb">
 				<li>
 					<i class="fa fa-dashboard"></i>  <a href="{{URL::route('index')}}">Dashboard</a>
 				</li>
 				<li class="active">
-					<i class="fa fa-edit"></i> Laporan Pengiriman Barang
+					<i class="fa fa-edit"></i> Laporan Pembayaran Barang
 				</li>
 			</ol>
 		</div>
@@ -31,6 +31,11 @@
 	<div class="row">
 		{{Form::open(array('url'=>'','class'=>'form-horizontal', 'id'=> 'form-area'))}}
 
+		<div class="form-group">
+			<div class="col-sm-4 control-label">
+				<h4>Tanggal PreOrder</h4>
+			</div>
+		</div>
 		<div class="form-group">
 			{{form::label('awal', 'Awal', array('class' => 'col-sm-3 control-label'))}}
 			<div class="col-sm-6">
@@ -72,7 +77,7 @@
 				var awal = document.getElementById("dateafter").value;
 				var akhir = document.getElementById("datebefore").value;
 
-				var w = window.open('printDO/'+awal+'/'+akhir, '_blank');
+				var w = window.open('printPO/'+awal+'/'+akhir, '_blank');
 				w.focus();
 			});
 

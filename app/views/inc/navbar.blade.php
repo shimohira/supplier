@@ -71,6 +71,7 @@
                         <a href="{{ URL::route('lapSTTB') }}">Laporan Pengadaan<br>Barang</a>
                         <a href="{{ URL::route('lapSPPB') }}">Laporan Pemesanan<br>Barang</a>
                         <a href="{{ URL::route('lapStock') }}">Laporan Stock<br>Barang</a>
+                        <a href="{{ URL::route('lapPO') }}">Laporan Pembayaran<br>Barang</a>
                         <a href="{{ URL::route('lapDO') }}">Laporan Pengiriman<br>Barang</a>
                     </li>
                 </ul>
